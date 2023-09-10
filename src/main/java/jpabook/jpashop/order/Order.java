@@ -1,6 +1,7 @@
 package jpabook.jpashop.order;
 
 import jpabook.jpashop.delivery.Delivery;
+import jpabook.jpashop.item.Item;
 import jpabook.jpashop.member.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,10 +32,10 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
@@ -42,4 +43,20 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; // ORDER, CANCEL
+
+    //==양방향 연관관계 메서드
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }
