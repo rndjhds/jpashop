@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.controller.BookForm;
 import jpabook.jpashop.item.Book;
 import jpabook.jpashop.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
@@ -23,7 +24,7 @@ public class ItemService {
     }
 
     @Transactional
-    public void upadateItem(Long itemId, Book bookParam) {
+    public void upadateItem(Long itemId, BookForm bookParam) {
         Item findItem = itemRepository.findOne(itemId);
         findItem.setPrice(bookParam.getPrice());
         findItem.setName(bookParam.getName());
