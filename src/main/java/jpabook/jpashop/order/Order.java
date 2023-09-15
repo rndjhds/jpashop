@@ -70,7 +70,7 @@ public class Order {
         order.setDelivery(delivery);
 
         for(OrderItem orderItem : orderItems) {
-            order.orderItems.add(orderItem);
+            order.addOrderItem(orderItem);
         }
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
