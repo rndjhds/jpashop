@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @SequenceGenerator(
         name = "CATEGOTY_SEQ_GENERATOR",
-        sequenceName = "CATEGORY_SEQ",
+        sequenceName = "CATEGORY_SEQ_JPA",
         allocationSize = 50,
         initialValue = 1
 )
