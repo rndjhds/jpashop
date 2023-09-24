@@ -5,6 +5,8 @@ import jpabook.jpashop.order.Order;
 import jpabook.jpashop.order.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.order.simpleQuery.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.simpleQuery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,6 +28,8 @@ X to One (ManyToOne, OneToOne) 최적화방법
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
@@ -50,6 +53,11 @@ public class OrderSimpleApiController {
         return result;
     }
 
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> orderV4() {
+        return orderSimpleQueryRepository.findOrderDtos();
+    }
+
     @Data
     static class SimpleOrderDto {
         private Long orderId;
@@ -57,6 +65,7 @@ public class OrderSimpleApiController {
         private LocalDateTime orderDate; //주문시간
         private OrderStatus orderStatus;
         private Address address;
+
         public SimpleOrderDto(Order order) {
             orderId = order.getId();
             name = order.getMember().getUsername();
@@ -64,6 +73,6 @@ public class OrderSimpleApiController {
             orderStatus = order.getOrderStatus();
             address = order.getDelivery().getAddress();
         }
-    }
 
+    }
 }
