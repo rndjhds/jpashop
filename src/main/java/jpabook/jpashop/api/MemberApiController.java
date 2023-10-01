@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,9 @@ public class MemberApiController {
         }
     }
 
+    // 엔티티를 파라미터로 받는건 좋지 않다 엔티티의 스펙이 바뀌게 되면 api를 사용하는 모든곳에서 스펙이 변경되기 떄문에 별도의 dto를 만들어서 api를 만드는게 좋다
+    // @Valid로 엔티티나 dto에서 설정한 @NotEmpty와 같은 설정을 가져올수 있다 가져와서 필요한 데이터에 대한 에러를 발생시켜서 필요한 데이터를 넘겨주도록 한다.
+    // 엔티티를 리턴으로 반환해주는것은 좋지 않다. 불필요한 데이터도 무조건 넘겨줘야 하기 떄문이다.
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
         Long memberId = memberService.join(member);
@@ -64,7 +68,22 @@ public class MemberApiController {
         return new CreateMemberResponse(memberId);
     }
 
-    @PutMapping("/api/v2/members/{id}")
+    @Data
+    static class CreateMemberRequest {
+        @NotEmpty
+        private String name;
+    }
+
+    @Data
+    static class CreateMemberResponse {
+        private Long id;
+
+        public CreateMemberResponse(Long id) {
+            this.id = id;
+        }
+    }
+
+    @PatchMapping("/api/v2/members/{id}")
     public UpdateMemberResponse updateMemberV2(
             @PathVariable("id") Long memberId,
             @RequestBody @Valid UpdateMemberRequest request) {
@@ -85,20 +104,4 @@ public class MemberApiController {
         private Long id;
         private String name;
     }
-
-    @Data
-    static class CreateMemberRequest {
-        private String name;
-    }
-
-    @Data
-    static class CreateMemberResponse {
-        private Long id;
-
-        public CreateMemberResponse(Long id) {
-            this.id = id;
-        }
-    }
-
-
 }

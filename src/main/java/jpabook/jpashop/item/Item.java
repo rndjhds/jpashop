@@ -16,7 +16,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "DTYPE")
 @SequenceGenerator(
         name = "ITEM_SEQ_GENERATOR",
-        sequenceName = "ITEM_SEQ",
+        sequenceName = "ITEM_SEQ_JPA",
         allocationSize = 50,
         initialValue = 1
 )

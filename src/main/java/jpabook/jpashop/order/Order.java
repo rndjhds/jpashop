@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "ORDERS")
 @SequenceGenerator(
         name = "ORDER_SEQ_GENERATOR",
-        sequenceName = "ORDER_SEQ",
+        sequenceName = "ORDER_SEQ_JPA",
         allocationSize = 50,
         initialValue = 1
 )

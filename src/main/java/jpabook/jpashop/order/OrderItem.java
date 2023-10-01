@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @SequenceGenerator(
         name = "ORDER_ITEM_SEQ_GENERATOR",
-        sequenceName = "ORDER_ITEM_SEQ",
+        sequenceName = "ORDER_ITEM_SEQ_JPA",
         initialValue = 1,
         allocationSize = 50
 )

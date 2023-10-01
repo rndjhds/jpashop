@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @SequenceGenerator(
         name = "DELIVERY_SEQ_GENERATOR",
-        sequenceName = "DELIVERY_SEQ",
+        sequenceName = "DELIVERY_SEQ_JPA",
         initialValue = 1,
         allocationSize = 50
 )
