@@ -63,16 +63,6 @@ public class OrderApiController {
 
     }
 
-    @GetMapping("/api/v4/orders")
-    public List<OrderQueryDto> ordersV4() {
-        return orderQueryRepository.findOrderQueryDtos();
-    }
-
-    @GetMapping("/api/v5/orders")
-    public List<OrderQueryDto> orderV5() {
-        return orderQueryRepository.findAllByDto_optimization();
-    }
-
     @Data
     static class OrderDto {
 
@@ -105,5 +95,16 @@ public class OrderApiController {
             orderPrice = orderItem.getOrderPrice();
             count = orderItem.getCount();
         }
+    }
+
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> orderV5() {
+        return orderQueryRepository.findAllByDto_optimization();
     }
 }
